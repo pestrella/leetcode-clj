@@ -1,13 +1,14 @@
 (ns data-exercises-clj.graph)
 
 (defn has-path? [graph start end]
-  (loop [nodes (conj clojure.lang.PersistentQueue/EMPTY start)
+  (loop [nodes (conj clojure.lang.PersistentQueue/EMPTY [start])
          visited #{}]
-    (when-let [node (peek nodes)]
+    (when-let [[node & path] (peek nodes)]
       (if (= node end)
-        node
+        (conj path node)
         (recur (->> (graph node)
                     (filter #(not (visited %)))
+                    (map #(conj path node %))
                     (apply conj (pop nodes)))
                (conj visited node))))))
 
@@ -35,5 +36,5 @@
               :i [:e :j]
               :j [:g :i]})
 
-  (has-path? graph :a :e)
+  (has-path? graph :a :j)
 )
