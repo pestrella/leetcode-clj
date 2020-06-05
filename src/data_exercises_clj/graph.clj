@@ -1,29 +1,39 @@
 (ns data-exercises-clj.graph)
 
-(defrecord Node [name destinations])
-
-(defn has-path? [node name]
-  (loop [nodes [node]
+(defn has-path? [graph start end]
+  (loop [nodes (conj clojure.lang.PersistentQueue/EMPTY start)
          visited #{}]
-    (when-let [node (first nodes)]
-      (if (= name (:name @node))
+    (when-let [node (peek nodes)]
+      (if (= node end)
         node
-        (recur (->> (:destinations @node)
-                    (filter #(not (visited (:name (deref %))))))
-               (conj visited (:name @node)))))))
+        (recur (->> (graph node)
+                    (filter #(not (visited %)))
+                    (apply conj (pop nodes)))
+               (conj visited node))))))
 
 (comment
   ;; A - B - C
-  (def a (ref (->Node :a [])))
-  (def b (ref (->Node :b [])))
-  (def c (ref (->Node :c [])))
+  (def graph {:a [:b]
+              :b [:a :c]
+              :c [:b]})
 
-  ;; set *print-level* when working in a REPL to avoid stackoverflow
-  ;; when any cyclic references are printed
-  (set! *print-level* 2)
-  (dosync (alter a assoc :destinations [b])
-          (alter b assoc :destinations [a c])
-          (alter c assoc :destinations [b]))
+  (has-path? graph :a :d)
 
-  (has-path? a :c)
+  ;; A - B - C - F
+  ;; |       |
+  ;; D - E   G
+  ;; |   |   |
+  ;; H   I - J
+  (def graph {:a [:b :d]
+              :b [:a :c]
+              :c [:b :f :g]
+              :d [:a :e :h]
+              :e [:d :i]
+              :f [:c]
+              :g [:c :j]
+              :h [:d]
+              :i [:e :j]
+              :j [:g :i]})
+
+  (has-path? graph :a :e)
 )
