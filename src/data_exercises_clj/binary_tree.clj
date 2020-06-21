@@ -37,15 +37,34 @@
                 (float)))
          depths)))
 
+(defn get-height
+  ([node] (get-height node -1))
+  ([node depth]
+   (if node
+     (max (get-height (:left node) (inc depth))
+          (get-height (:right node) (inc depth)))
+     depth)))
+
 (comment
-  (-> (Node. 8 nil nil)
-      (insert 4)
-      (insert 15)
-      (insert 22)
-      (insert 9)
-      (insert 17)
-      (insert 6)
-      (insert 2)
-      (insert 5)
-      (get-averages))
+  ;;      8
+  ;;     / \
+  ;;    /   \
+  ;;   4    15
+  ;;  / \   / \
+  ;; 2   6 9  22
+  ;;    /    /
+  ;;   5    17
+
+  (def n (-> (Node. 8 nil nil)
+             (insert 4)
+             (insert 15)
+             (insert 22)
+             (insert 9)
+             (insert 17)
+             (insert 6)
+             (insert 2)
+             (insert 5)))
+
+  (get-averages n)
+  (get-height n)
 )

@@ -26,15 +26,38 @@
                    (/ (count v))
                    (float))))))
 
+(defn get-height [node]
+  (loop [nodes [node]
+         depth -1]
+    (if (seq nodes)
+      (recur (reduce (fn [next-depth-nodes node]
+                       (-> (filter some? [(:left node) (:right node)])
+                           (into next-depth-nodes)))
+                     []
+                     nodes)
+             (inc depth))
+      depth)))
+
 (comment
-  (-> (->Node 8 nil nil)
-      (insert 4)
-      (insert 15)
-      (insert 22)
-      (insert 9)
-      (insert 17)
-      (insert 6)
-      (insert 2)
-      (insert 5)
-      (get-averages))
+  ;;      8
+  ;;     / \
+  ;;    /   \
+  ;;   4    15
+  ;;  / \   / \
+  ;; 2   6 9  22
+  ;;    /    /
+  ;;   5    17
+
+  (def n (-> (->Node 8 nil nil)
+             (insert 4)
+             (insert 15)
+             (insert 22)
+             (insert 9)
+             (insert 17)
+             (insert 6)
+             (insert 2)
+             (insert 5)))
+
+  (get-averages n)
+  (get-height n)
 )
