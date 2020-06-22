@@ -18,3 +18,29 @@
          (map #(mergesort comp %))
          (apply merge' comp))
     coll))
+
+(defn- insert'[comp arr i]
+  (if (= i 0)
+    arr
+    (let [j (dec i)
+          curr (get arr i)
+          prev (get arr j)]
+      (if (comp curr prev)
+        (recur comp
+               (-> arr
+                   (assoc j curr)
+                   (assoc i prev))
+               j)
+        arr))))
+
+(defn insertion-sort [comp arr]
+  (loop [i 0
+         arr arr]
+    (if (< i (count arr))
+      (recur (inc i)
+             (insert' comp arr i))
+      arr)))
+
+(comment
+  (insertion-sort < [1 4 3 5 6 2])
+)
