@@ -41,6 +41,44 @@
              (insert' comp arr i))
       arr)))
 
+(defn- pivot-compare [comp arr i pivot step]
+  (loop [i i]
+    (if (comp (get arr i) pivot)
+      (recur (+ i step))
+      i)))
+
+(defn- swap
+  [arr i j]
+  (-> arr
+      (assoc i (arr j))
+      (assoc j (arr i))))
+
+(defn- partition' [arr lo hi]
+  (let [pivot (get arr (-> (+ lo hi)
+                           (/ 2)
+                           (int)))]
+    (loop [arr arr
+           i lo
+           j hi]
+      (let [i (pivot-compare < arr i pivot 1)
+            j (pivot-compare > arr j pivot -1)]
+        (if (>= i j)
+          [arr j]
+          (recur (swap arr i j) (inc i) (dec j)))))))
+
+(defn- quick-sort' [arr lo hi]
+  (if (< lo hi)
+    (let [[arr border] (partition' arr lo hi)]
+      (-> arr
+          (quick-sort' lo border)
+          (quick-sort' (inc border) hi)))
+    arr))
+
+(defn quick-sort [arr]
+  (quick-sort' arr 0 (dec (count arr))))
+
 (comment
   (insertion-sort < [1 4 3 5 6 2])
+
+  (quick-sort [1 4 2 3 5 6 2])
 )

@@ -48,6 +48,16 @@
                          (->> (get-players) (take size)))]
       (is (= size (count players))))))
 
+(defn- random-numbers [n]
+  (cons (int (rand n)) (lazy-seq (random-numbers n))))
+
+(deftest do-quicksort
+  (testing "Do quicksort"
+    (let [size 10000
+          numbers (into [] (take size (random-numbers 100000)))
+          sorted (time (quick-sort numbers))]
+      (is (= size (count sorted))))))
+
 (comment
   (time (let [s (sort #(> (:score %1) (:score %2))
                       (->> (get-players) (take 1000)))]
