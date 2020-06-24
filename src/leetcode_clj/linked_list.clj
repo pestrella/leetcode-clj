@@ -1,4 +1,4 @@
-(ns data-exercises-clj.linked-list)
+(ns leetcode-clj.linked-list)
 
 (defrecord Node [value next])
 
@@ -15,7 +15,7 @@
   ;; lower the print level to avoid stackoverflow
   (set! *print-level* 2)
 
-  ;; simple linked list
+  ;; 1. simple linked list
   (def c (ref (->Node :c nil)))
   (def b (ref (->Node :b c)))
   (def a (->Node :a b))
@@ -30,7 +30,7 @@
   ;; has cycle
   (has-cycle? a)
 
-  ;; longer cycle
+  ;; 2. longer cycle
   ;; a -> b -> c -> d -> e -> b
   (def e (ref (->Node :e nil)))
   (def d (ref (->Node :d e)))

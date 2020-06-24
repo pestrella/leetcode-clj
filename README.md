@@ -1,3 +1,3 @@
-# data-exercises-clj
+# Leetcode
 
-Fun with data structures (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧
+Fun programming exercises (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧

@@ -1,6 +1,6 @@
-(ns data-exercises-clj.core-test
+(ns leetcode-clj.core-test
   (:require [clojure.test :refer :all]
-            [data-exercises-clj.sorting :refer :all]))
+            [leetcode-clj.sorting :refer :all]))
 
 ;; some merge sort performances measurements
 

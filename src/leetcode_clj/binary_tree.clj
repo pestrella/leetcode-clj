@@ -1,4 +1,4 @@
-(ns data-exercises-clj.binary-tree)
+(ns leetcode-clj.binary-tree)
 
 (defrecord Node [data left right])
 

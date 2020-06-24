@@ -1,4 +1,4 @@
-(ns data-exercises-clj.rotation)
+(ns leetcode-clj.rotation)
 
 (defn rotate
   "Rotate array in the specified direction `dir`. Negative
@@ -17,6 +17,7 @@
     (recur b (mod a b))))
 
 (comment
+  (split-at 2 [1 2 3 4 5])
   (rotate [1 2 3 4 5] -2)
   (rotate [1 2 3 4 5] 4)
 )

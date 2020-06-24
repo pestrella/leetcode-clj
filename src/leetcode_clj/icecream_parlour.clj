@@ -1,4 +1,4 @@
-(ns data-exercises-clj.icecream-parlour)
+(ns leetcode-clj.icecream-parlour)
 
 (defn- idx
   "Index an array of integers, mapping each integer value to

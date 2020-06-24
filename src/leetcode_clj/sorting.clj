@@ -1,4 +1,4 @@
-(ns data-exercises-clj.sorting)
+(ns leetcode-clj.sorting)
 
 (defn- merge' [comp left right]
   (loop [sorted []
@@ -53,32 +53,32 @@
       (assoc i (arr j))
       (assoc j (arr i))))
 
-(defn- partition' [arr lo hi]
+(defn- partition' [pred arr lo hi]
   (let [pivot (get arr (-> (+ lo hi)
                            (/ 2)
                            (int)))]
     (loop [arr arr
            i lo
            j hi]
-      (let [i (pivot-compare < arr i pivot 1)
-            j (pivot-compare > arr j pivot -1)]
+      (let [i (pivot-compare pred arr i pivot 1)
+            j (pivot-compare (comp not pred) arr j pivot -1)]
         (if (>= i j)
           [arr j]
           (recur (swap arr i j) (inc i) (dec j)))))))
 
-(defn- quick-sort' [arr lo hi]
+(defn- quick-sort' [arr pred lo hi]
   (if (< lo hi)
-    (let [[arr border] (partition' arr lo hi)]
+    (let [[arr border] (partition' pred arr lo hi)]
       (-> arr
-          (quick-sort' lo border)
-          (quick-sort' (inc border) hi)))
+          (quick-sort' pred lo border)
+          (quick-sort' pred (inc border) hi)))
     arr))
 
-(defn quick-sort [arr]
-  (quick-sort' arr 0 (dec (count arr))))
+(defn quick-sort [pred arr]
+  (quick-sort' arr pred 0 (dec (count arr))))
 
 (comment
   (insertion-sort < [1 4 3 5 6 2])
 
-  (quick-sort [1 4 2 3 5 6 2])
+  (quick-sort < [1 4 2 3 5 6 2])
 )

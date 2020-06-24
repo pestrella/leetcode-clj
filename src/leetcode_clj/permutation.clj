@@ -1,4 +1,4 @@
-(ns data-exercises-clj.permutation)
+(ns leetcode-clj.permutation)
 
 (defn- swap
   "swap item at index i with j of the given array"

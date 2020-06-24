@@ -1,4 +1,4 @@
-(ns data-exercises-clj.queues)
+(ns leetcode-clj.queues)
 
 ;; implement a queue using 2 stacks
 (defrecord Queue [stack1 stack2])

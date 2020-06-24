@@ -1,4 +1,4 @@
-(ns data-exercises-clj.word-area)
+(ns leetcode-clj.word-area)
 
 ;; solution to https://www.hackerrank.com/challenges/designer-pdf-viewer/problem
 

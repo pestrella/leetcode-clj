@@ -1,5 +1,5 @@
-(ns data-exercises-clj.bfs
-  (:require [data-exercises-clj.binary-tree :refer [->Node insert print-data]]))
+(ns leetcode-clj.bfs
+  (:require [leetcode-clj.binary-tree :refer [->Node insert print-data]]))
 
 ;; compare this bfs implementation with the dfs version in binary_tree.clj
 

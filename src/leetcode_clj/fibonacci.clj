@@ -1,4 +1,4 @@
-(ns data-exercises-clj.fibonacci)
+(ns leetcode-clj.fibonacci)
 
 (defn fib [n]
   (condp = n

@@ -1,4 +1,4 @@
-(ns data-exercises-clj.graph)
+(ns leetcode-clj.graph)
 
 (defn has-path? [graph start end]
   (loop [nodes (conj clojure.lang.PersistentQueue/EMPTY [start])
